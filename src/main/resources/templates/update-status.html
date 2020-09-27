@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Registration and
+                Login</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <form th:action="@{/users/update/{id}(id=${post.id})}" method="post" th:object="${user}">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="status" class="col-form-label">Status</label> <input
+                            type="text" th:field="*{status}" class="form-control" id="status"
+                            placeholder="Status"> <span
+                            th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+                            class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <strong>Choose Privacy</strong>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" th:field="*{choosePrivacy}" id="option1" value="Public">
+                            <label class="form-check-label" for="option1">Public</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" th:field="*{choosePrivacy}" id="option2" value="Private">
+                            <label class="form-check-label" for="option2">Private</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label>Check in</label>
+                        <select class="form-control" th:field="*{checkIn}">
+                            <option value="">Choose...</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                            <option value="Japan">Japan</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <input type="submit" class="btn btn-primary"
+                               value="Update Student">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
